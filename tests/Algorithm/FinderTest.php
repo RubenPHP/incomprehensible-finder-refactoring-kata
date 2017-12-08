@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace CodelyTV\FinderKataTest\Algorithm;
 
-use CodelyTV\FinderKata\Algorithm\AgeComparator;
+use CodelyTV\FinderKata\Algorithm\AgeDistanceCalculator;
 use CodelyTV\FinderKata\Algorithm\AgeDistance;
 use CodelyTV\FinderKata\Algorithm\Person;
 use PHPUnit\Framework\TestCase;
@@ -46,9 +46,9 @@ final class FinderTest extends TestCase
     public function should_return_empty_when_given_empty_list()
     {
         $personList   = [];
-        $ageComparator = new AgeComparator($personList);
+        $ageDistanceCalculator = new AgeDistanceCalculator($personList);
 
-        $result = $ageComparator->compare(AgeDistance::CLOSEST);
+        $result = $ageDistanceCalculator->calculate(AgeDistance::CLOSEST);
 
         $this->assertEquals(null, $result->oldestPerson);
         $this->assertEquals(null, $result->youngestPerson);
@@ -59,9 +59,9 @@ final class FinderTest extends TestCase
     {
         $personList   = [];
         $personList[] = $this->sue;
-        $ageComparator = new AgeComparator($personList);
+        $ageDistanceCalculator = new AgeDistanceCalculator($personList);
 
-        $result = $ageComparator->compare(AgeDistance::CLOSEST);
+        $result = $ageDistanceCalculator->calculate(AgeDistance::CLOSEST);
 
         $this->assertEquals(null, $result->oldestPerson);
         $this->assertEquals(null, $result->youngestPerson);
@@ -73,9 +73,9 @@ final class FinderTest extends TestCase
         $personList   = [];
         $personList[] = $this->sue;
         $personList[] = $this->greg;
-        $ageComparator = new AgeComparator($personList);
+        $ageDistanceCalculator = new AgeDistanceCalculator($personList);
 
-        $result = $ageComparator->compare(AgeDistance::CLOSEST);
+        $result = $ageDistanceCalculator->calculate(AgeDistance::CLOSEST);
 
         $this->assertEquals($this->sue, $result->oldestPerson);
         $this->assertEquals($this->greg, $result->youngestPerson);
@@ -87,9 +87,9 @@ final class FinderTest extends TestCase
         $personList   = [];
         $personList[] = $this->mike;
         $personList[] = $this->greg;
-        $ageComparator = new AgeComparator($personList);
+        $ageDistanceCalculator = new AgeDistanceCalculator($personList);
 
-        $result = $ageComparator->compare(AgeDistance::FURTHEST);
+        $result = $ageDistanceCalculator->calculate(AgeDistance::FURTHEST);
 
         $this->assertEquals($this->greg, $result->oldestPerson);
         $this->assertEquals($this->mike, $result->youngestPerson);
@@ -103,9 +103,9 @@ final class FinderTest extends TestCase
         $personList[] = $this->sarah;
         $personList[] = $this->mike;
         $personList[] = $this->greg;
-        $ageComparator = new AgeComparator($personList);
+        $ageDistanceCalculator = new AgeDistanceCalculator($personList);
 
-        $result = $ageComparator->compare(AgeDistance::FURTHEST);
+        $result = $ageDistanceCalculator->calculate(AgeDistance::FURTHEST);
 
         $this->assertEquals($this->sue, $result->oldestPerson);
         $this->assertEquals($this->sarah, $result->youngestPerson);
@@ -121,9 +121,9 @@ final class FinderTest extends TestCase
         $personList[] = $this->sarah;
         $personList[] = $this->mike;
         $personList[] = $this->greg;
-        $ageComparator = new AgeComparator($personList);
+        $ageDistanceCalculator = new AgeDistanceCalculator($personList);
 
-        $result = $ageComparator->compare(AgeDistance::CLOSEST);
+        $result = $ageDistanceCalculator->calculate(AgeDistance::CLOSEST);
 
         $this->assertEquals($this->sue, $result->oldestPerson);
         $this->assertEquals($this->greg, $result->youngestPerson);
